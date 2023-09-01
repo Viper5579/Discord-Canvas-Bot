@@ -31,6 +31,7 @@
   "homepage": "https://github.com/discord-canvas/Discord-Canvas-Bot#readme",
   "dependencies": {
     "@douile/bot-utilities": "^1.3",
+    "discord.js": "^14.13.0",
     "discord.js-light": "^4.10",
     "dotenv": "^16.0",
     "node-fetch": "^2.6",

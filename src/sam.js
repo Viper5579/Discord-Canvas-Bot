@@ -46,6 +46,7 @@ class Sam {
 const getCourses = async function() {
   const res = await get(URL, this.token);
   const text = await res.text();
+   console.log(text); // Add this line
 
   const html = HTMLParser.parse(text, OPTS_HTML_PARSE);
 

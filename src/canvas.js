@@ -103,15 +103,26 @@ class Canvas {
     return req.get(`${this.api}/courses/${courseID}/todo`, this.token);
   }
 
-  async getCourseAssignments(courseID) {
-    const assignments = await req.getPaginated(`${this.api}/courses/${courseID}/assignments`, this.token);
-    return assignments.map(a => {
-      let due = Date.parse(a.due_at);
-      let dueDate = new Date();
-      dueDate.setTime(due);
-      return {id: a.id, name: a.name, course: a.course_id, due, dueDate, points: a.points_possible, url: a.html_url };
-    });
+  async getAllAssignmentsForDefinedCourses() {
+    const courseIDs = ["187", "217", "292", "319", "136"];
+    let allAssignments = [];
+    
+    for (const courseID of courseIDs) {
+      const assignments = await req.getPaginated(`${this.api}/api/v1/courses/${courseID}/assignments`, this.token);
+      const mappedAssignments = assignments.map(a => {
+        let due = Date.parse(a.due_at);
+        let dueDate = new Date();
+        dueDate.setTime(due);
+        return {id: a.id, name: a.name, course: a.course_id, due, dueDate, points: a.points_possible, url: a.html_url };
+      });
+      
+      allAssignments = allAssignments.concat(mappedAssignments);
+    }
+    
+    return allAssignments;
   }
+  
+  
 
   async getCourseDiscussions(courseID) {
     const discussions = await req.getPaginated(`${this.api}/courses/${courseID}/discussion_topics`, this.token);
