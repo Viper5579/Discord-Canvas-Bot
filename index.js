@@ -10,6 +10,10 @@ const { asyncWrap } = require('./src/utils.js');
 
 let activeChild;
 
+console.log("Discord Token:", process.env.DISCORD_TOKEN);
+console.log("Canvas Token:", process.env.CANVAS_TOKEN);
+console.log("SAM Token:", process.env.SAM_TOKEN);
+
 async function awaitClose(child) {
   return new Promise((resolve) => {
     child.once('exit', function() {

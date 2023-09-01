@@ -17,13 +17,13 @@ const { Config, enforceType } = require('./types.js');
 *******************************************************************************/
 
 const client = new Client({
-  intents: Intents.FLAGS.GUILD_MESSAGES | Intents.FLAGS.GUILDS | Intents.FLAGS.MESSAGE_CONTENT,
+  intents: ['GUILDS', 'GUILD_MESSAGES'],
   cacheGuilds: false,
-	cacheChannels: false,
-	cacheOverwrites: false,
-	cacheRoles: false,
-	cacheEmojis: false,
-	cachePresences: false,
+  cacheChannels: false,
+  cacheOverwrites: false,
+  cacheRoles: false,
+  cacheEmojis: false,
+  cachePresences: false,
   presence: BOT_PRESENCE,
   disableMentions: 'everyone',
   partials: ['MESSAGE'],
@@ -147,7 +147,7 @@ const startBot = module.exports = async function(botToken, canvasToken, samToken
     }
   });
   await loadCommands();
-  await client.login(botToken);
+  await client.login(process.env.DISCORD_TOKEN);
   if (config.automated_assignments.length > 0) {
     await assignmentAutoUpdate(client);
     assignmentInterval = setInterval(asyncWrap(assignmentAutoUpdate), 1000 * 60 * 30, client);
